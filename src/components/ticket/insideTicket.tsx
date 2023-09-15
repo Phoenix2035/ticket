@@ -1,8 +1,21 @@
 import airplaneIcon from "assets/images/airplane.png"
-import {CalculateDurationTime, FormattedBoardingTime, FormattedMonthDate, FormattedTime, Truncate} from "utils";
+import OutsideTicket from "./outsideTicket";
+import {CalculateDurationTime, FormattedBoardingTime, FormattedTime} from "utils";
+import {InsideTicketDetailsProps} from "constants/interface.const";
 
 
-const Ticket = ({ticketDetails}: any) => {
+const InsideTicket = ({
+                          dst,
+                          src,
+                          logoSrc,
+                          logoStyle,
+                          price,
+                          seat,
+                          gates,
+                          transfer,
+                          class: flightClass,
+                          boarding
+                      }:  InsideTicketDetailsProps) => {
 
 
     return (
@@ -10,15 +23,15 @@ const Ticket = ({ticketDetails}: any) => {
             <div className="w-[60%] h-[200px] relative bg-white rounded-xl flex flex-col select-none overflow-hidden">
                 <div className="w-[140px] text-center absolute -left-[44px] top-[15px] text-white bg-[#ff0000] p-1"
                      style={{transform: "rotateZ(-50deg)"}}>
-                    {ticketDetails.class}
+                    {flightClass}
                 </div>
                 <div className="w-full flex justify-around p-5 m-auto  text-center">
                     <div>
                         <div className={"font-bold text-xl"}>To</div>
-                        <div className={"font-bold text-3xl"}>{ticketDetails.dst.iso3}</div>
+                        <div className={"font-bold text-3xl"}>{dst.iso3}</div>
                         <div className={"text-[16px]"}>
                             <div className={"text-gray-500"}>
-                                {ticketDetails.dst.airline}
+                                {dst.airline}
                             </div>
 
                         </div>
@@ -31,15 +44,15 @@ const Ticket = ({ticketDetails}: any) => {
                         <div className="dot dot3"/>
                         <img className={"z-20"} src={airplaneIcon} alt="airplane"/>
                         <div
-                            className={"bg-[#ccc] mt-1 px-3 py-1 rounded font-bold text-xl"}>${ticketDetails.price}</div>
+                            className={"bg-[#ccc] mt-1 px-3 py-1 rounded font-bold text-xl"}>${price}</div>
                     </div>
 
 
                     <div>
                         <div className={"font-bold text-xl"}>From</div>
-                        <div className={"font-bold text-3xl"}>{ticketDetails.src.iso3}</div>
+                        <div className={"font-bold text-3xl"}>{src.iso3}</div>
                         <div className={"text-[16px]"}>
-                            <div className={"text-gray-500"}>{ticketDetails.src.airline}</div>
+                            <div className={"text-gray-500"}>{src.airline}</div>
                         </div>
                     </div>
                 </div>
@@ -51,7 +64,7 @@ const Ticket = ({ticketDetails}: any) => {
                 <div className="flex justify-around">
                     <div className={"w-1/3"}>
                         <div className={"font-bold text-3xl"}>
-                            {FormattedBoardingTime(ticketDetails.boarding)}
+                            {FormattedBoardingTime(boarding)}
                         </div>
                         <div className={"text-gray-500"}>
                             Boarding
@@ -61,7 +74,7 @@ const Ticket = ({ticketDetails}: any) => {
 
                     <div className={"w-1/3"}>
                         <div className={"font-bold text-3xl"}>
-                            {CalculateDurationTime(ticketDetails.src.time, ticketDetails.dst.time)}
+                            {CalculateDurationTime(src.time, dst.time)}
                         </div>
                         <div className={"text-gray-500"}>
                             Duration
@@ -70,7 +83,7 @@ const Ticket = ({ticketDetails}: any) => {
 
                     <div className={"w-1/3"}>
                         <div className={"font-bold text-3xl"}>
-                            {FormattedTime(ticketDetails.dst.time) + " - " + FormattedTime(ticketDetails.src.time)}
+                            {FormattedTime(dst.time) + " - " + FormattedTime(src.time)}
                         </div>
                         <div className={"text-gray-500"}>
                             Flight Time
@@ -81,7 +94,7 @@ const Ticket = ({ticketDetails}: any) => {
                 <div className="flex justify-around">
                     <div className={"w-1/3"}>
                         <div className={"font-bold text-3xl"}>
-                            {ticketDetails.seat}
+                            {seat}
                         </div>
                         <div className={"text-gray-500"}>
                             Seat
@@ -91,7 +104,7 @@ const Ticket = ({ticketDetails}: any) => {
 
                     <div className={"w-1/3"}>
                         <div className={"font-bold text-4xl"}>
-                            {ticketDetails.gates}
+                            {gates}
                         </div>
                         <div className={"text-gray-500"}>
                             Gate
@@ -100,7 +113,7 @@ const Ticket = ({ticketDetails}: any) => {
 
                     <div className={"w-1/3"}>
                         <div className={"font-bold text-4xl"}>
-                            {ticketDetails.transfer ? "Yes" : "No"}
+                            {transfer ? "Yes" : "No"}
                         </div>
                         <div className={"text-gray-500"}>
                             Transfer
@@ -109,53 +122,10 @@ const Ticket = ({ticketDetails}: any) => {
                 </div>
             </div>
 
-            <div
-                className="w-[60%] h-[200px] bg-white rounded-xl flex justify-center items-center text-center select-none mt-4 relative overflow-hidden">
-                <div className="w-[140px] text-center absolute -left-[44px] top-[15px] text-white bg-[#ff0000] p-1"
-                     style={{transform: "rotateZ(-50deg)"}}>
-                    {ticketDetails.class}
-                </div>
-
-                <div
-                    className={"absolute bottom-0 left-1/2 border-2 border-dashed border-[#555] rounded px-10 font-bold text-3xl"}
-                    style={{transform: "translateX(-50%)"}}>
-                    ${ticketDetails.price}
-                </div>
-
-                <div className={"w-[90%] flex justify-between items-center"}>
-                    <div className={"w-[55%] flex justify-between"}>
-                        <div>
-                            <div className={"text-gray-500"}> {Truncate(ticketDetails.dst.country, 15)}</div>
-                            <div className={"font-bold text-3xl"}>{FormattedTime(ticketDetails.dst.time)}</div>
-                            <div className={"text-gray-500"}>{FormattedMonthDate(ticketDetails.dst.time)}</div>
-                        </div>
-
-                        <div>
-                            <img src={airplaneIcon} alt="airplane"/>
-                        </div>
-                        <div>
-                            <div className={"text-gray-500"}>
-                                {Truncate(ticketDetails.src.country, 15)}
-                            </div>
-                            <div className={"font-bold text-3xl"}>
-                                {FormattedTime(ticketDetails.src.time)}
-                            </div>
-                            <div className={"text-gray-500"}>
-                                {FormattedMonthDate(ticketDetails.src.time)}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <img width={200} height={ticketDetails.logoStyle.height}
-                             src={ticketDetails.logoSrc} alt="logo"/>
-                    </div>
-                </div>
-
-            </div>
+            <OutsideTicket dst={dst} logoSrc={logoSrc} src={src} flightClass={flightClass} logoStyle={logoStyle} price={price}/>
 
         </div>
     );
 };
 
-export default Ticket;
+export default InsideTicket;

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
-import Ticket from "components/ticket";
+import InsideTicket from "components/ticket/insideTicket";
 import {logoutUser} from "services/logout";
 import {TOKEN} from "constants/token.const";
 import {getTicketList} from "services/getList";
@@ -80,7 +80,7 @@ const DashboardPage = () => {
 
             <div className="mt-4">
                 {
-                    ticketDetails?.map(item=><Ticket ticketDetails={item}/>)
+                    ticketDetails?.map(item=><InsideTicket {...item}/>)
                 }
             </div>
         </div>
