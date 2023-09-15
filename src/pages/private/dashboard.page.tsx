@@ -1,23 +1,52 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
+import Ticket from "components/ticket";
 import {logoutUser} from "services/logout";
 import {TOKEN} from "constants/token.const";
+import {getTicketList} from "services/getList";
+import {getUsername} from "services/getUsername";
 import ROUTES_CONSTANT from "constants/routes.const";
-import Ticket from "../../components/ticket";
+import {TicketDetailsProps} from "constants/interface.const";
 
 const DashboardPage = () => {
+    const [username, setUsername] = useState('')
     const [showLogout, setShowLogout] = useState(false)
+
+    const [ticketDetails,setTicketDetails] = useState<TicketDetailsProps[]>([])
 
     const navigate = useNavigate();
     const token = localStorage.getItem(TOKEN)
 
 
-    const handleLogout = ()=>{
+
+    const handleLogout = () => {
         logoutUser(token)
         localStorage.removeItem(TOKEN)
         navigate(ROUTES_CONSTANT.LOGIN_ROUTE)
     }
+
+    useEffect(() => {
+        getUsername(token).then(response => {
+            if (response?.data.result === "success") {
+                setUsername(response.data.username)
+            } else if (response?.data.result === "unauthorized") {
+                toast.error("Please Authorized")
+            }
+        }).catch(err => toast.error("Somethings Wrong"))
+
+    }, [])
+
+
+    useEffect(() => {
+        getTicketList(token, 1, 1).then(response => {
+            if (response) {
+                setTicketDetails(response.data.result)
+            }
+        })
+    }, []);
+
 
     return (
         <div>
@@ -26,7 +55,7 @@ const DashboardPage = () => {
                 <div className="flex flex-col relative ">
                     <div onClick={() => setShowLogout(!showLogout)}
                          className="select-none mr-10 px-4 py-1 rounded border border-black cursor-pointer">
-                        admin
+                        {username}
                     </div>
 
                     {
@@ -50,7 +79,9 @@ const DashboardPage = () => {
             </div>
 
             <div className="mt-4">
-                <Ticket/>
+                {
+                    ticketDetails?.map(item=><Ticket ticketDetails={item}/>)
+                }
             </div>
         </div>
     );

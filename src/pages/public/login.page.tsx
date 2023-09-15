@@ -5,17 +5,15 @@ import {useNavigate} from "react-router-dom";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {SubmitHandler, useForm} from "react-hook-form";
 
-import CustomInput from "components/customInput";
 import Loading from "components/loading";
 import {loginUser} from "services/login";
 import {TOKEN} from "constants/token.const";
+import CustomInput from "components/customInput";
 import ROUTES_CONSTANT from "constants/routes.const";
+import {LoginFormInputs} from "constants/interface.const";
 
 
-interface LoginFormInputs {
-    username: string
-    password: string
-}
+
 
 const loginSchema = yup.object().shape({
     username: yup.string().required('username is required'),

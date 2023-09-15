@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 
+import LoginPage from "pages/public/login.page";
 import NotFoundPage from "pages/not-found.page";
 import PrivateRoutes from "routes/private-routes";
 import ROUTES_CONSTANT from "./constants/routes.const";
 import DashboardPage from "./pages/private/dashboard.page";
-import LoginPage from "pages/public/login.page";
 import OnboardingRoutesGuard from "routes/onboarding-routes-guard";
 
 
