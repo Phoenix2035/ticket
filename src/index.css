@@ -1,0 +1,218 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #282a36;
+}
+
+.App::before {
+    content: "";
+    position: absolute;
+    top: 25%;
+    right: 10%;
+    width: 350px;
+    height: 350px;
+    background: #f09 linear-gradient(45deg, #3023ae 0%, #f09 100%);
+    border-radius: 32% 67% 52% 65% / 25% 45% 80% 56%;
+    will-change: border-radius, transform, opacity;
+    animation: sliderShape 6s linear infinite;
+    display: block;
+    z-index: 1;
+    -webkit-animation: sliderShape 6s linear infinite;
+}
+
+
+.App::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    width: 350px;
+    height: 350px;
+    background: #f09 linear-gradient(45deg, #3023ae 0%, #f09 100%);
+    border-radius: 62% 37% 82% 35% / 45% 45% 80% 66%;
+    will-change: border-radius, transform, opacity;
+    animation: sliderShape 4s linear infinite alternate;
+    -webkit-animation: sliderShape 4s linear infinite alternate;
+    display: block;
+    z-index: 1;
+}
+
+@media (max-width: 360px) {
+    .App > div {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+@media (max-width: 400px) {
+    .App::before, .App::after {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+
+@keyframes sliderShape {
+    0%,
+    100% {
+        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+        transform: translate3d(0, 0, 0) rotateZ(0.01deg);
+    }
+    34% {
+        border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
+        transform: translate3d(0, 5px, 0) rotateZ(0.01deg);
+    }
+    50% {
+        transform: translate3d(0, 0, 0) rotateZ(0.01deg);
+    }
+    67% {
+        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+        transform: translate3d(0, -3px, 0) rotateZ(0.01deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .App::after {
+        display: none;
+    }
+}
+
+@keyframes animate {
+    0% {
+        background-position: -500%;
+    }
+    100% {
+        background-position: 500%;
+    }
+}
+
+.four_zero_four_bg {
+    height: 400px;
+    background-image: url(assets/images/notFound.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+
+/*Loading */
+.lds-ring {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+}
+
+.lds-ring div {
+    width: 24px;
+    height: 24px;
+    display: block;
+    position: absolute;
+    border: 2px solid;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #ff0000 transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/*Animated Dots*/
+.airplane-container {
+    width: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #636363;
+    border-radius: 50%;
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    z-index: 0;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+
+.dot1 {
+    animation-name: moveDot1;
+}
+
+.dot2 {
+    animation-name: moveDot2;
+}
+
+.dot3 {
+    animation-name: moveDot3;
+}
+
+
+@keyframes moveDot1 {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: 150px;
+    }
+}
+
+@keyframes moveDot2 {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: 150px;
+    }
+}
+
+@keyframes moveDot3 {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: 150px;
+    }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
