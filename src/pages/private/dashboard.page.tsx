@@ -2,19 +2,19 @@ import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
-import InsideTicket from "components/ticket/insideTicket";
 import {logoutUser} from "services/logout";
 import {TOKEN} from "constants/token.const";
 import {getTicketList} from "services/getList";
 import {getUsername} from "services/getUsername";
 import ROUTES_CONSTANT from "constants/routes.const";
-import {TicketDetailsProps} from "constants/interface.const";
+import InsideTicket from "components/ticket/insideTicket";
+import {InsideTicketDetailsProps} from "constants/interface.const";
 
 const DashboardPage = () => {
     const [username, setUsername] = useState('')
     const [showLogout, setShowLogout] = useState(false)
 
-    const [ticketDetails,setTicketDetails] = useState<TicketDetailsProps[]>([])
+    const [ticketDetails,setTicketDetails] = useState<InsideTicketDetailsProps[]>([])
 
     const navigate = useNavigate();
     const token = localStorage.getItem(TOKEN)
