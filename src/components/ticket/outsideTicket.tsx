@@ -7,7 +7,7 @@ import {OutsideTicketDetailsProps} from "constants/interface.const";
 const OutsideTicket = ({flightClass, price, dst, src, logoStyle, logoSrc, setOpen}: OutsideTicketDetailsProps) => {
     return (
         <div
-            className="w-[60%] h-[200px] rounded-xl flex justify-center items-center text-center select-none mt-4 static -bottom-[200px] overflow-hidden bg-white flip-box-back cursor-pointer"
+            className="w-[60%] h-[200px] rounded-xl flex justify-center items-center text-center select-none mt-4 absolute -bottom-[200px] overflow-hidden bg-white flip-box-back cursor-pointer bg-red-400"
             onClick={() => setOpen(true)}>
             <div className="w-[140px] text-center absolute -left-[44px] top-[15px] text-white bg-[#ff0000] p-1"
                  style={{transform: "rotateZ(-50deg)"}}>

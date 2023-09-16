@@ -19,6 +19,7 @@ const InsideTicket = ({
                           class: flightClass,
                           boarding
                       }: InsideTicketDetailsProps) => {
+
     const [open, setOpen] = useState(false)
 
     const filipStyle = {
@@ -27,9 +28,11 @@ const InsideTicket = ({
 
 
     return (
-        <div className="flex justify-center items-center flex-col flip-box mt-10">
+        <div className="flex justify-center items-center flex-col flip-box mt-10"
+             style={{marginBottom: open ? "230px" : "", transition: open ? "0.3s": "1s"}}>
             <div
-                className="w-[60%] h-[200px] relative rounded-xl flex flex-col select-none overflow-hidden bg-white cursor-pointer" onClick={() => setOpen(false)}>
+                className="w-[60%] h-[200px] relative rounded-xl flex flex-col select-none overflow-hidden bg-white cursor-pointer"
+                onClick={() => setOpen(false)}>
                 <div className="w-[140px] text-center absolute -left-[44px] top-[15px] text-white bg-[#ff0000] p-1"
                      style={{transform: "rotateZ(-50deg)"}}>
                     {flightClass}
