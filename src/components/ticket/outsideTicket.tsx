@@ -1,13 +1,14 @@
 import airplaneIcon from "assets/images/airplane.png";
+
 import {FormattedMonthDate, FormattedTime, Truncate} from "utils";
 import {OutsideTicketDetailsProps} from "constants/interface.const";
 
 
-
-const OutsideTicket = ({flightClass,price,dst,src,logoStyle,logoSrc}:OutsideTicketDetailsProps) => {
+const OutsideTicket = ({flightClass, price, dst, src, logoStyle, logoSrc, setOpen}: OutsideTicketDetailsProps) => {
     return (
         <div
-            className="w-[60%] h-[200px] bg-white rounded-xl flex justify-center items-center text-center select-none mt-4 relative overflow-hidden">
+            className="w-[60%] h-[200px] rounded-xl flex justify-center items-center text-center select-none mt-4 static -bottom-[200px] overflow-hidden bg-white flip-box-back cursor-pointer"
+            onClick={() => setOpen(true)}>
             <div className="w-[140px] text-center absolute -left-[44px] top-[15px] text-white bg-[#ff0000] p-1"
                  style={{transform: "rotateZ(-50deg)"}}>
                 {flightClass}

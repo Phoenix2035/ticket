@@ -12,19 +12,24 @@ import {InsideTicketDetailsProps} from "constants/interface.const";
 
 const DashboardPage = () => {
     const [username, setUsername] = useState('')
+    const [moreTickets, setMoreTickets] = useState(3)
+    const [totalTickets, setTotalTickets] = useState(0)
     const [showLogout, setShowLogout] = useState(false)
 
-    const [ticketDetails,setTicketDetails] = useState<InsideTicketDetailsProps[]>([])
+    const [ticketDetails, setTicketDetails] = useState<InsideTicketDetailsProps[]>([])
 
     const navigate = useNavigate();
     const token = localStorage.getItem(TOKEN)
-
 
 
     const handleLogout = () => {
         logoutUser(token)
         localStorage.removeItem(TOKEN)
         navigate(ROUTES_CONSTANT.LOGIN_ROUTE)
+    }
+
+    const showMoreTickets = () => {
+        setMoreTickets(prev => prev + 3)
     }
 
     useEffect(() => {
@@ -38,20 +43,19 @@ const DashboardPage = () => {
 
     }, [])
 
-
     useEffect(() => {
-        getTicketList(token, 1, 1).then(response => {
+        getTicketList(token, 1, moreTickets).then(response => {
             if (response) {
                 setTicketDetails(response.data.result)
+                setTotalTickets(response.data.total)
             }
         })
-    }, []);
+    }, [moreTickets]);
 
 
     return (
         <div>
             <div className="w-full h-[50px] bg-white flex justify-between items-center">
-
                 <div className="flex flex-col relative ">
                     <div onClick={() => setShowLogout(!showLogout)}
                          className="select-none mr-10 px-4 py-1 rounded border border-black cursor-pointer">
@@ -78,11 +82,19 @@ const DashboardPage = () => {
                 </h2>
             </div>
 
-            <div className="mt-4">
+            <div className="my-20">
                 {
-                    ticketDetails?.map(item=><InsideTicket {...item}/>)
+                    ticketDetails?.map(item => <InsideTicket {...item}/>)
                 }
             </div>
+
+            {
+                ticketDetails.length  === totalTickets ? null :
+                    <div
+                        className="w-1/2 bg-[#ff0000] text-[18px] text-white text-center rounded border-0 outline-0  py-4 px-0 mx-auto cursor-pointer">
+                        <button onClick={showMoreTickets}>Load More</button>
+                    </div>
+            }
         </div>
     );
 };

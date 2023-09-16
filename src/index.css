@@ -14,6 +14,8 @@ body,
 
 body {
     background-color: #282a36;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .App::before {
@@ -149,25 +151,18 @@ body {
 
 
 /*Animated Dots*/
-.airplane-container {
-    width: 130px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-}
-
 .dot {
     width: 10px;
     height: 10px;
     background-color: #636363;
     border-radius: 50%;
     position: absolute;
-    top: 28%;
+    top: 50%;
     left: 50%;
-    z-index: 0;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     animation-duration: 3s;
     animation-iteration-count: infinite;
 }
@@ -214,6 +209,33 @@ body {
 }
 
 
+/*** Filip Box ***/
+.flip-box {
+    background-color: transparent;
+    perspective: 1000px;
+}
+
+.flip-box-inner {
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    transform-origin: top;
+}
+
+
+.flip-box-front {
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+
+.flip-box-back {
+    position: absolute;
+    transform: rotateX(180deg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
 
 
 @tailwind base;
