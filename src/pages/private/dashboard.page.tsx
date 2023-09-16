@@ -41,7 +41,7 @@ const DashboardPage = () => {
             }
         }).catch(err => toast.error("Somethings Wrong"))
 
-    }, [])
+    }, [token])
 
     useEffect(() => {
         getTicketList(token, 1, moreTickets).then(response => {
@@ -50,7 +50,7 @@ const DashboardPage = () => {
                 setTotalTickets(response.data.total)
             }
         })
-    }, [moreTickets]);
+    }, [token, moreTickets]);
 
 
     return (
@@ -89,7 +89,7 @@ const DashboardPage = () => {
             </div>
 
             {
-                ticketDetails.length  === totalTickets ? null :
+                ticketDetails.length === totalTickets ? null :
                     <div
                         className="w-1/2 bg-[#ff0000] text-[18px] text-white text-center rounded border-0 outline-0  py-4 px-0 mx-auto cursor-pointer">
                         <button onClick={showMoreTickets}>Load More</button>
